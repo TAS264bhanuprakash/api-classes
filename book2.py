@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel,Field
 
 app=FastAPI()
 
@@ -25,6 +26,13 @@ BOOK=[
     Book(5,"Data Science5","Data Boy5","Normal",1)
 ]
 
+def validation(BaseModel):
+    id: int
+    name: str
+    author: str
+    description: str
+    rating: int
+
 @app.get("/book_data/data")
-async def data():
+async def data(data=validation):
     return BOOK
